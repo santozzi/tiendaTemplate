@@ -4,7 +4,11 @@ export const clienteCreateSchema = z.object({
     body: z.object({
         nombre:z.string(), 
         apellido:z.string(), 
-        direccion:z.string()
+        direccion:z.string(),
+        email:z.string().email(),
+        password:z.string().min(5,{message:"debe ser mayor a 5 caracteres"}),
+        userName:z.string().min(5,{message:"el usuario debe ter mas de 5 caracteres"})
+
     })
 
 })

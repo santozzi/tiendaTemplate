@@ -9,7 +9,7 @@ interface IPayload{
 const config:TokenSecurity =  confgToken();
 export const TokenValidation = (req:Request,res:Response,next:NextFunction)=>{
     const token = req.header('auth-token');
-    console.log("estoy en middleware");
+    
     if(!token)
       return res.status(401).json('Access denided');
   
@@ -22,3 +22,4 @@ export const TokenValidation = (req:Request,res:Response,next:NextFunction)=>{
 
     
 }
+//TODO: agregar validacion del password y sacarlo de auth

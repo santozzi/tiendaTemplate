@@ -1,9 +1,11 @@
 import { DataSource } from "typeorm";
 import { Cliente } from "./entities/cliente";
-import { Usuario } from "./entities/usuario";
+import { Auth } from "./entities/auth";
 import { DBConeection, confgDB } from "../config/db.config";
+import { Empleado } from "./entities/empleado";
+import { Persona } from "./entities/persona";
 
-
+//TODO: preparar una plantilla con mongoDB
      const config:DBConeection = confgDB();
    export     const AppDataSource = new DataSource({
         type: "mysql",
@@ -14,7 +16,7 @@ import { DBConeection, confgDB } from "../config/db.config";
         database: config.database,
         synchronize: true,
         logging: true,
-        entities: [Cliente,Usuario],
+        entities: [Persona,Cliente,Auth,Empleado],
         subscribers: [],
         migrations: [],
     })  

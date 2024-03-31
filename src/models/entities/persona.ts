@@ -1,28 +1,19 @@
-import { DB } from './db';
-export class Persona extends DB{
-
-    protected nombre: string;
-    protected apellido: string;
+import { BaseEntity, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Empleado } from "./empleado";
+@Entity()
+export class Persona extends BaseEntity{
+     @PrimaryGeneratedColumn({name:"id_persona"})
+     idPersona:number;
+     @Column() 
+     nombre: string;
+     @Column()
+     apellido: string;
+     @Column({unique:true})
+     email: string;
+     @Column()
+     direccion: string;
+     //bidireccional
+     @OneToOne(()=>Empleado,(empleado)=>empleado.persona)
+     empleado:Empleado;
     
-    constructor(nombre: string, apellido: string,id:number=0,created_at:Date=new Date(0,0,0)){
-        super(id,created_at);
-        
-        this.nombre = nombre;
-        this.apellido = apellido;
-     
-    }
-    getNombre(){
-        return this.nombre;
-    }
-    getApellido(){
-        return this.apellido;
-    }
-  
-    setNombre(nombre: string){
-        this.nombre = nombre;
-    }
-    setApellido(apellido: string){
-        this.apellido = apellido;
-    }
-  
 }

@@ -1,20 +1,19 @@
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Persona } from './persona';
-export class Empleado extends Persona{
-    protected puesto:string;
-    protected fechaDeContratacion:Date;
-    constructor(nombre: string, apellido: string, puesto:string, fechaDeContratacion:Date){
-        super(nombre, apellido);
-        this.puesto = puesto;
-        this.fechaDeContratacion = fechaDeContratacion;
-    }
-    getPuesto(){
-        return this.puesto;
-    }
-    getFechaDeContratacion(){
-        return this.fechaDeContratacion;
-    }
-    setPuesto(puesto:string){
-        this.puesto = puesto;
-    }
+@Entity()
+export class Empleado extends BaseEntity{
+    @PrimaryGeneratedColumn({name:"id_empleado"})
+    idEmpleado:number;
+    @Column()
+    puesto:string;
+    @Column()
+    fechaDeContratacion:Date;
+    @Column({name:"id_auth"})
+    idAuth:number;
+    //relaciones
+    @OneToOne(()=>Persona)
+    @JoinColumn({name:"id_persona"})
+    persona:Persona;
+
 
 }

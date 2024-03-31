@@ -2,18 +2,33 @@ import {Request,Response} from 'express';
 import { Cliente } from '../models/entities/cliente';
 import { ClienteDto } from '../models/dtos/cliente.dto';
 import { clienteSchemaType } from '../schemas/cliente.schema';
+import { Persona } from '../models/entities/persona';
+import { Auth } from '../models/entities/auth';
 
 export async function createCliente(req:Request, res:Response) {
     try {
      
-        const {nombre, apellido, direccion} = req.body;
+        const {nombre, apellido, direccion, email,userName,password} = req.body;
         const cliente = new Cliente();
-        cliente.nombre = nombre;
-        cliente.apellido= apellido;
-        cliente.direccion = direccion;
-        await cliente.save();
+        const persona = new Persona();
+        const auth = new Auth();
+        auth.userName = userName;
+        auth.setPassword(password);
 
-        res.status(200).json(cliente);
+        persona.nombre = nombre;
+        persona.apellido= apellido;
+        persona.direccion = direccion;
+        persona.email= email;
+        const personaSaved = await persona.save();
+        cliente.persona = personaSaved;
+        
+        const authSaved = await auth.save();
+        cliente.auth= authSaved;
+        const clienteSaved = await cliente.save();
+   
+
+
+        res.status(200).json(clienteSaved);
     } catch (error ) {
         if(error instanceof Error){
             res.status(500).json({message: error.message});
@@ -21,7 +36,8 @@ export async function createCliente(req:Request, res:Response) {
     }
     
 }
-export async function getClientes(req:Request, res:Response){
+
+/* export async function getClientes(req:Request, res:Response){
     try {
         const clientes: Cliente[] = await Cliente.findBy({activo:true});
          res.status(200).send(clientes);
@@ -55,24 +71,7 @@ export async function updateCliente(req:Request, res:Response){
         if(error instanceof Error)
            res.status(500).json({message: error.message});
     }
-}
-/* export async function destroyCliente(req:Request,res:Response){
-    try {
-        const {id} = req.params;
-        const cliente = await Cliente.findOneBy({id:parseInt(id)});
-        if(cliente){
-            await Cliente.delete({id:parseInt(id)})
-            res.status(200).json({message:"Fué eliminado con exito"})
-        }else{
-            res.status(404).json({message:"El cliente no se encuentra"})
-        }
-
-    } catch (error) {
-        if(error instanceof Error)
-          res.status(500).json({message: error.message})
-    }
-} */
-export async function deleteCliente(req:Request, res:Response){
+}export async function deleteCliente(req:Request, res:Response){
 
     try {
         const {id} = req.params;
@@ -110,4 +109,24 @@ export async function clienteFindOneById(req:Request, res:Response) {
             res.status(500).json({message:error.message})
         }
      }
-}
+} */
+
+
+
+
+/* export async function destroyCliente(req:Request,res:Response){
+    try {
+        const {id} = req.params;
+        const cliente = await Cliente.findOneBy({id:parseInt(id)});
+        if(cliente){
+            await Cliente.delete({id:parseInt(id)})
+            res.status(200).json({message:"Fué eliminado con exito"})
+        }else{
+            res.status(404).json({message:"El cliente no se encuentra"})
+        }
+
+    } catch (error) {
+        if(error instanceof Error)
+          res.status(500).json({message: error.message})
+    }
+} */

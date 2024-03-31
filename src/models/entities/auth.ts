@@ -1,37 +1,31 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, } from "typeorm";
 import bcrypt from 'bcryptjs'
+import { Persona } from "./persona";
 
 @Entity()
-export class Usuario extends BaseEntity{
+export class Auth extends BaseEntity{
+ 
    @PrimaryGeneratedColumn()
-   id:number;
-   @Column()
-   nombre:string;
+   idAuth:number;
    @Column({unique:true})
    userName:string;
    @Column()
-   apellido:string;
-   @Column({unique:true})
-   email:string;
-   @Column()
    protected password:string;
-   @CreateDateColumn()
-   created_at:Date  
+
    @Column({default:true})
    activo:boolean;
+
 
    public async setPassword(pass: string){
      const salt =  await bcrypt.genSalt(10); 
      this.password = await bcrypt.hash(pass,salt);
    }
-   public showUser(){
+   public showAuth(){
       return {
-         id:this.id,
-         nombre:this.nombre,
-         apellido:this.apellido,
+         idPersona:this.idAuth,
+
          userName:this.userName,
-         email:this.email,
-         created_at:this.created_at
+        
       }
    }
    public async validatePassword(password:string){
