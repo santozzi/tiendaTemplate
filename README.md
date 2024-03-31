@@ -7,3 +7,4 @@
 * dotenv
 * margin types
 * express
+* validacion de request con zod

@@ -1,13 +1,15 @@
 import { Response,Request } from "express";
 import { Usuario } from "../models/entities/usuario";
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
+import { TokenSecurity, confgToken } from "../config/token.config";
 
+
+const config:TokenSecurity =  confgToken();
 
 export async function signUp(req:Request ,res:Response){
+  
     try {
-        //creando un usuario
+           
         const {nombre,userName,apellido,email,password} = req.body;
         const usuario:Usuario = new Usuario();
         usuario.nombre = nombre;
@@ -17,7 +19,7 @@ export async function signUp(req:Request ,res:Response){
         await usuario.setPassword(password);
         const savedUser = await usuario.save(); 
         //token
-        const clave:string = process.env.SECRET_KEY || "sergio";
+        const clave:string = config.secretKey;
         
         const token: string = jwt.sign({_id:savedUser.id},clave);
 
@@ -28,20 +30,25 @@ export async function signUp(req:Request ,res:Response){
 
     } catch (error) {
         if(error instanceof Error){
-            res.status(500).json({message: error.message});
+          res.status(500).json({message: error.message});
         }
     }
 
 }
 export async function signIn(req:Request ,res:Response){
+  
   try {
+    
+
     const {userName, password} = req.body;
     const usuario = await Usuario.findOneBy({userName});
     if(usuario){
       const validate:boolean = await usuario.validatePassword(password);
+      
       if(validate){
-        const token = jwt.sign({_id:usuario.id}, process.env.SECRET_KEY || "sergio",{
+        const token = jwt.sign({_id:usuario.id}, config.secretKey,{
             expiresIn: 60 * 60 * 24
+            
         }) 
         res.status(200).header('auth-token',token).json(usuario.showUser());
          
@@ -51,10 +58,13 @@ export async function signIn(req:Request ,res:Response){
     }else{
         res.status(403).json({message: "usuario o clave incorrectos"})
     }
+    
   } catch (error) {
-    if(error instanceof Error)
-      res.status(500).json({message: error.message})
-  }
+    if(error instanceof Error){
+      res.status(500).json({message: error.message});
+          
+    }
+}
 }
 export async function profile(req:Request ,res:Response){
   

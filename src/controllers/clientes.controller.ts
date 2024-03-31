@@ -1,6 +1,7 @@
 import {Request,Response} from 'express';
 import { Cliente } from '../models/entities/cliente';
 import { ClienteDto } from '../models/dtos/cliente.dto';
+import { clienteSchemaType } from '../schemas/cliente.schema';
 
 export async function createCliente(req:Request, res:Response) {
     try {
