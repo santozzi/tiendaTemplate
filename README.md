@@ -7,4 +7,5 @@
 * dotenv
 * margin types
 * express
-* validacion de request con zod
+* validation request with zod
+* unit testing with jest and supertest

@@ -1,10 +1,10 @@
-import { DB } from "./db";
 
-export class CategoriaProducto extends DB{
+
+export class CategoriaProducto {
     protected nombre:string;
     protected descripcion:string;
     constructor(nombre:string, descripcion:string,id:number=0,created_at:Date=new Date(0,0,0)){
-        super(id,created_at);
+       
         this.nombre = nombre;
         this.descripcion = descripcion;
     }

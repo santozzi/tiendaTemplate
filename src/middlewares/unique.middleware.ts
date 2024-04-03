@@ -1,6 +1,6 @@
 import { Request,Response,NextFunction } from "express";
 import { Persona } from "../models/entities/persona";
-import { Cliente } from "../models/entities/cliente";
+
 import { Auth } from "../models/entities/auth";
 
 export const uniqueValidation =  async (req:Request,res:Response,next:NextFunction)=>{

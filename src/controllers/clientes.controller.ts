@@ -4,7 +4,9 @@ import { ClienteDto } from '../models/dtos/cliente.dto';
 import { clienteSchemaType } from '../schemas/cliente.schema';
 import { Persona } from '../models/entities/persona';
 import { Auth } from '../models/entities/auth';
-
+export function hola(req:Request, res:Response){
+    return  res.status(200).json({message: "hola mundo"});
+}
 export async function createCliente(req:Request, res:Response) {
     try {
      

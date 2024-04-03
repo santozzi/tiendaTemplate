@@ -5,8 +5,8 @@ import { TokenSecurity, confgToken } from "../config/token.config";
 
 
 const config:TokenSecurity =  confgToken();
-
-export async function signUp(req:Request ,res:Response){
+//deprecated
+/* export async function signUp(req:Request ,res:Response){
   
     try {
            
@@ -34,11 +34,11 @@ export async function signUp(req:Request ,res:Response){
     }
 
 }
+ */
+
 export async function signIn(req:Request ,res:Response){
   
   try {
-    
-
     const {userName, password} = req.body;
     const usuario = await Auth.findOneBy({userName});
     if(usuario){
@@ -49,7 +49,7 @@ export async function signIn(req:Request ,res:Response){
             expiresIn: 60 * 60 * 24
             
         }) 
-        res.status(200).header('auth-token',token).json(usuario.showAuth());
+        res.status(202).header('auth-token',token).json(usuario.showAuth());
          
       }else{
         res.status(403).json({message: "usuario o clave incorrectos"});
@@ -66,10 +66,10 @@ export async function signIn(req:Request ,res:Response){
 }
 }
 export async function profile(req:Request ,res:Response){
-  
-    
     const usuario = await Auth.findOneBy({idAuth:req.userId})
     if(usuario)
        res.status(200).json(usuario);
+    else
+       res.status(500).json({message: "error de auth"});
 
 }

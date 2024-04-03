@@ -1,15 +1,15 @@
-import { DB } from "./db";
+
 import { Orden } from "./orden";
 import { Producto } from "./producto";
 
-export class DetalleDeOrden extends DB{
+export class DetalleDeOrden {
     protected productos:Producto[];
     protected orden:Orden;
     protected cantidad:number;
     protected precioUnitario:number;
     protected total:number;
     constructor(productos:Producto[], orden:Orden, cantidad:number, precioUnitario:number, total:number,id:number=0,created_at:Date=new Date(0,0,0)){
-        super(id,created_at);
+  
         this.productos = productos;
         this.orden = orden;
         this.cantidad = cantidad;

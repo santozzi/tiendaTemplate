@@ -1,6 +1,6 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, } from "typeorm";
+import { BaseEntity, Column, Entity,   PrimaryGeneratedColumn } from "typeorm";
 import bcrypt from 'bcryptjs'
-import { Persona } from "./persona";
+
 
 @Entity()
 export class Auth extends BaseEntity{
