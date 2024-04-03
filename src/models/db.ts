@@ -4,6 +4,11 @@ import { Auth } from "./entities/auth";
 import { DBConeection, confgDB } from "../config/db.config";
 import { Empleado } from "./entities/empleado";
 import { Persona } from "./entities/persona";
+import { CategoriaProducto } from "./entities/categoriaProducto";
+import { DetalleDeOrden } from "./entities/detalleDeOrden";
+import { Orden } from "./entities/orden";
+import { Producto } from "./entities/producto";
+import { Venta } from "./entities/venta";
 
 //TODO: preparar una plantilla con mongoDB
      const config:DBConeection = confgDB();
@@ -16,7 +21,7 @@ import { Persona } from "./entities/persona";
         database: config.database,
         synchronize: true,
         logging: true,
-        entities: [Persona,Cliente,Auth,Empleado],
+        entities: [CategoriaProducto,DetalleDeOrden,Orden,Producto,Venta,Persona,Cliente,Auth,Empleado],
         subscribers: [],
         migrations: [],
     })  

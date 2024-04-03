@@ -1,50 +1,22 @@
 
+import { BaseEntity, Column, PrimaryGeneratedColumn } from "typeorm";
 import { Orden } from "./orden";
 import { Producto } from "./producto";
+//TODO: hacer las relaciones entre entidades
+export class DetalleDeOrden extends BaseEntity{
+    @PrimaryGeneratedColumn()
+    id:number; 
+    @Column()
+    productos:Producto[];
+    @Column()
+    orden:Orden;
+    @Column()
+    cantidad:number;
+    @Column()
+    precioUnitario:number;
+    @Column()
+    total:number;
 
-export class DetalleDeOrden {
-    protected productos:Producto[];
-    protected orden:Orden;
-    protected cantidad:number;
-    protected precioUnitario:number;
-    protected total:number;
-    constructor(productos:Producto[], orden:Orden, cantidad:number, precioUnitario:number, total:number,id:number=0,created_at:Date=new Date(0,0,0)){
-  
-        this.productos = productos;
-        this.orden = orden;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-        this.total = total;
-    }
-    getProductos(){
-        return this.productos;
-    }
-    getOrden(){
-        return this.orden;
-    }
-    getCantidad(){
-        return this.cantidad;
-    }
-    getPrecioUnitario(){
-        return this.precioUnitario;
-    }
-    getTotal(){
-        return this.total;
-    }
-    setProductos(productos:Producto[]){
-        this.productos = productos;
-    }
-    setOrden(orden:Orden){
-        this.orden = orden;
-    }
-    setCantidad(cantidad:number){
-        this.cantidad = cantidad;
-    }
-    setPrecioUnitario(precioUnitario:number){
-        this.precioUnitario = precioUnitario;
-    }
-    setTotal(total:number){
-        this.total = total;
-    }
+    
 
 }
