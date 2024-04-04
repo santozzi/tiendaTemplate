@@ -4,9 +4,7 @@ import { ClienteDto } from '../models/dtos/cliente.dto';
 import { clienteSchemaType } from '../schemas/cliente.schema';
 import { Persona } from '../models/entities/persona';
 import { Auth } from '../models/entities/auth';
-export function hola(req:Request, res:Response){
-    return  res.status(200).json({message: "hola mundo"});
-}
+
 export async function createCliente(req:Request, res:Response) {
     try {
      
@@ -30,7 +28,7 @@ export async function createCliente(req:Request, res:Response) {
    
 
 
-        res.status(200).json(clienteSaved);
+        res.status(201).json(clienteSaved);
     } catch (error ) {
         if(error instanceof Error){
             res.status(500).json({message: error.message});
@@ -116,12 +114,12 @@ export async function clienteFindOneById(req:Request, res:Response) {
 
 
 
-/* export async function destroyCliente(req:Request,res:Response){
+ export async function destroyCliente(req:Request,res:Response){
     try {
         const {id} = req.params;
-        const cliente = await Cliente.findOneBy({id:parseInt(id)});
+        const cliente = await Cliente.findOneBy({idCliente:parseInt(id)});
         if(cliente){
-            await Cliente.delete({id:parseInt(id)})
+            await Cliente.delete({idCliente:parseInt(id)})
             res.status(200).json({message:"Fué eliminado con exito"})
         }else{
             res.status(404).json({message:"El cliente no se encuentra"})
@@ -131,4 +129,4 @@ export async function clienteFindOneById(req:Request, res:Response) {
         if(error instanceof Error)
           res.status(500).json({message: error.message})
     }
-} */
+} 

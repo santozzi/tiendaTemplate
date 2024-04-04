@@ -14,10 +14,10 @@ export class Cliente extends BaseEntity{
     idAuth:number;
     @Column({name:"id_persona"})
     idPersona:number;
-    @OneToOne(()=>Persona)
+    @OneToOne(()=>Persona,{onDelete: 'CASCADE'})
     @JoinColumn({name:"id_persona"})
     persona:Persona;
-    @OneToOne(()=>Auth)
+    @OneToOne(()=>Auth,{onDelete: 'CASCADE'})
     @JoinColumn({name:"id_auth"})
     auth:Auth;
     

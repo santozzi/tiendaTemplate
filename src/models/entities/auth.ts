@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity,   PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity,   OneToOne,   PrimaryGeneratedColumn } from "typeorm";
 import bcrypt from 'bcryptjs'
+import { Cliente } from "./cliente";
 
 
 @Entity()
@@ -11,7 +12,8 @@ export class Auth extends BaseEntity{
    userName:string;
    @Column()
    protected password:string;
-
+   @OneToOne(()=>Cliente,{onDelete:"CASCADE"})
+   cliente:Cliente;
    @Column({default:true})
    activo:boolean;
 
