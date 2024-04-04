@@ -1,13 +1,16 @@
-import { BaseEntity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Cliente } from "./cliente";
 import { Empleado } from "./empleado";
+@Entity()
 export class Venta extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @OneToOne(()=>Cliente)
+  @JoinColumn({name:"id_cliente"})
   cliente: Cliente;
 
-  @Column()
+  @OneToOne(()=>Empleado)
+  @JoinColumn({name:"id_empleado"})
   empleado: Empleado;
 
   @Column()
